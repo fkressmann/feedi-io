@@ -131,3 +131,5 @@ dmypy.json
 
 # Ignore Visual Studio folder
 .vs
+/pics/
+/feedi-io.iml

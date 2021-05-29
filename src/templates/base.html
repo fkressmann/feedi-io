@@ -9,6 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="none" />
     {% block head %}{% endblock %}
+    {% if room %}
+    <style>
+        primary-bg {
+            background-color: #{{ room.primary_color }} !important;
+        }
+    </style>
+    {% else %}
+    Roomt not set
+    {% endif %}
     <title>{% block title %}{% endblock %}</title>
 </head>
 
