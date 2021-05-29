@@ -6,9 +6,5 @@ FLASH_WARNING = 'warning'
 SESSION_USER = 'user_id'
 
 
-def redirect_index():
-    return redirect(url_for('web.index'))
-
-
 def redirect_overview():
     return redirect(url_for('web.overview'))

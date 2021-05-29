@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from flask import Flask, session
 
 
@@ -23,16 +21,18 @@ def register_extensions(app):
     from extensions.db import db
     from extensions.limiter import limiter
     from extensions.migrate import migrate
+    from extensions.login import login_manager
 
     db.init_app(app)
     migrate.init_app(app, db)
     limiter.init_app(app)
+    login_manager.init_app(app)
 
 
 
 def register_blueprints(app):
-    from routes.web import web_bp
-    app.register_blueprint(web_bp)
+    from routes.login import login_bp
+    app.register_blueprint(login_bp)
     pass
 
 

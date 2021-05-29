@@ -1,9 +1,31 @@
+import hashlib
+import os
+import binascii
+from flask_login import UserMixin
+
 from extensions.db import db
-from sqlalchemy.dialects.postgresql import UUID
+
+def hash_password(password):
+    """Hash a password for storing."""
+    salt = hashlib.sha256(os.urandom(60)).hexdigest().encode('ascii')
+    pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'),
+                                  salt, 100000)
+    pwdhash = binascii.hexlify(pwdhash)
+    return (salt + pwdhash).decode('ascii')
+
+def verify_password(stored_password, provided_password):
+    """Verify a stored password against one provided by user"""
+    salt = stored_password[:64]
+    stored_password = stored_password[64:]
+    pwdhash = hashlib.pbkdf2_hmac('sha512',
+                                  provided_password.encode('utf-8'),
+                                  salt.encode('ascii'),
+                                  100000)
+    pwdhash = binascii.hexlify(pwdhash).decode('ascii')
+    return pwdhash == stored_password
 
 
-
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
     email = db.Column(db.String(), primary_key=True, unique=True)
     password = db.Column(db.String())
@@ -12,8 +34,19 @@ class User(db.Model):
     lastname = db.Column(db.String())
     info = db.Column(db.String())
 
-    room_id = db.Column(UUID, db.ForeignKey('room.id'), nullable=False)
+    room_id = db.Column(db.String(8), db.ForeignKey('room.id'), nullable=False)
     room = db.relationship('Room', backref=db.backref('users', lazy=True))
 
     def __repr__(self):
         return f"<User {self.firstname} {self.lastname} ({self.email})>"
+
+    def __init__(self, email, password, room):
+        self.email = email
+        self.password = hash_password(password)
+        self.room = room
+
+    def check_login(self, given_pw):
+        return verify_password(self.password, given_pw)
+
+    def get_id(self):
+        return self.email
