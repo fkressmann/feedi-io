@@ -19,4 +19,4 @@ def index():
                   FLASH_DANGER)
 
     messages = get_flashed_messages(True)
-    return render_template('index.html', messages=messages, room=maybe_room)
+    return render_template('login.html', messages=messages, room=maybe_room)
