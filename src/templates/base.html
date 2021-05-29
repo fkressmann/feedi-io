@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ get_locale() }}">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <link href="/static/styles.css" rel="stylesheet">
@@ -26,72 +26,9 @@
     {% block content %}{% endblock %}
     <div style="font-weight: normal; text-align: center">
         <hr>
-        <a href="#" data-toggle="modal" data-target="#dps-modal" class="dps-modal-btn">{{ _("Data Privacy Statement") }}</a> -
-        <a href="#" data-toggle="modal" data-target="#faq-modal" id="faq-modal-btn">{{ _("FAQ") }}</a> -
+        Footer
     </div>
-
-    <div class="modal fade" id="dps-modal">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h2 class="modal-title">{{ _("Data Privacy Statement") }}</h2>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body" id="dps-content"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-xmas" data-dismiss="modal">{{ _("Close") }}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="faq-modal">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h2 class="modal-title">{{ _("FAQ") }}</h2>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body" id="faq-content"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-xmas" data-dismiss="modal">{{ _("Close") }}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
-<script>
-    $(document).ready(function () {
-        $(".dps-modal-btn").click(function () {
-            let dpsContent = $("#dps-content");
-            if (dpsContent.text().length === 0) {
-                $.ajax({
-                    url: 'get-dps',
-                    type: 'get'
-                }).done(function (responseData) {
-                    dpsContent.html(responseData)
-                }).fail(function () {
-                    console.log('Request Failed');
-                });
-            }
-        });
-        $("#faq-modal-btn").click(function () {
-            let faqContent = $("#faq-content");
-            if (faqContent.text().length === 0) {
-                $.ajax({
-                    url: 'get-faq',
-                    type: 'get'
-                }).done(function (responseData) {
-                    faqContent.html(responseData)
-                }).fail(function () {
-                    console.log('Request Failed');
-                });
-            }
-        });
-    })
-</script>
+
 </body>
 </html>

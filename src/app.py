@@ -23,9 +23,7 @@ def register_extensions(app):
     from extensions.db import db
     from extensions.limiter import limiter
     from extensions.migrate import migrate
-    from werkzeug.middleware.proxy_fix import ProxyFix
 
-    app.wsgi_app = ProxyFix(app.wsgi_app)
     db.init_app(app)
     migrate.init_app(app, db)
     limiter.init_app(app)
@@ -33,8 +31,8 @@ def register_extensions(app):
 
 
 def register_blueprints(app):
-    # from routes.auth import user_bp
-    # app.register_blueprint(user_bp)
+    from routes.web import web_bp
+    app.register_blueprint(web_bp)
     pass
 
 
