@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}BI X-mas challenge{% endblock %}
+
+{% block header %}
+<nav class="navbar navbar-light bg-light">
+    Erstelle deinen Raum
+</nav>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-5"></div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-lg-8 col-sm-12">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="row justify-content-md-center">
+                        <div class="col-lg-12 col-sm-12 text-center">
+                            <h5 class="card-title">Erstelle einen neuen Raum</h5>
+                        </div>
+                    </div>
+                    <div class="row justify-content-md-center">
+                        <div class="col-lg-12 col-sm-12 text-center">
+                            <img src="../static/img/logo.png" class="logo">
+                        </div>
+                    </div>
+                    <form>
+                        <div class="row justify-content-md-center">
+                            <div class="form-group col-lg-6 col-sm-12">
+                                <label for="room_name">Name des Raums</label>
+                                <input type="text" class="form-control" id="room_name"
+                                    placeholder="Dualer Summit Feedback Room">
+                            </div>
+                        </div>
+                        <div class="row justify-content-md-center">
+                            <div class="form-group col-lg-6 col-sm-12">
+                                <label for="primary_color">Primäre Farbe</label>
+                                <input type="text" class="form-control" id="primary_color" placeholder="#123456">
+                            </div>
+                        </div>
+                        <div class="row justify-content-md-center">
+                            <div class="form-group col-lg-6 col-sm-12">
+                                <label for="secondary_color">Passwort</label>
+                                <input type="text" class="form-control" id="secondary_color" placeholder="#123456">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row justify-content-center">
+
+                        <div class="col-lg-3 col-sm-12 text-center">
+                            <a href="#" class="btn btn-primary w-100">Raum erstellen</a>
+                        </div>
+                    </div>
+                    <div class="row mb-5"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}

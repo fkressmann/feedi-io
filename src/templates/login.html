@@ -17,23 +17,27 @@
         <div class="row mb-5"></div>
         <div class="row">
             <div class="col"></div>
-            <div class="col-8">
+            <div class="col-lg-8 col-sm-12">
                 <div class="card bg-light">
                     <div class="card-body">
                         <div class="row justify-content-md-center">
-                            {% if room %}
-                            <h5 class="card-title">Willkommen im Raum {{ room.name }} </h5>
-                            {% else %}
-                            <h5 class="card-title">Willkommen auf Feedi</h5>
-                            {% endif %}
-                            <h5 class="card-title"></h5>
+                            <div class="col-lg-12 col-sm-12 text-center">
+                                {% if room %}
+                                <h5 class="card-title">Willkommen im Raum {{ room.name }} </h5>
+                                {% else %}
+                                <h5 class="card-title">Willkommen auf Feedi</h5>
+                                {% endif %}
+                                <h5 class="card-title"></h5>
+                            </div>
                         </div>
                         <div class="row justify-content-md-center">
-                            <img src="../static/img/logo.png" class="logo">
+                            <div class="col-lg-12 col-sm-12 text-center">
+                                <img src="../static/img/logo.png" class="logo">
+                            </div>
                         </div>
                         <form>
                             <div class="row justify-content-md-center">
-                                <div class="form-group col-6">
+                                <div class="form-group col-lg-6 col-sm-12">
                                     <label for="room_id">ID des Raums</label>
                                     <input type="text" class="form-control" id="room_id"
                                         placeholder="Dualer Summit Feedback Room" {% if room %}readonly
@@ -41,14 +45,14 @@
                                 </div>
                             </div>
                             <div class="row justify-content-md-center">
-                                <div class="form-group col-6">
+                                <div class="form-group col-lg-6 col-sm-12">
                                     <label for="user_id">User ID</label>
                                     <input type="email" class="form-control" id="user_id"
                                         placeholder="max.mustermann@web.de">
                                 </div>
                             </div>
                             <div class="row justify-content-md-center">
-                                <div class="form-group col-6">
+                                <div class="form-group col-lg-6 col-sm-12">
                                     <label for="password">Passwort</label>
                                     <input type="password" class="form-control" id="password"
                                         placeholder="Dein Passwort">
@@ -57,10 +61,10 @@
                         </form>
                         <div class="row justify-content-center">
 
-                            <div class="col-3 text-center">
+                            <div class="col-lg-3 col-sm-3 text-center">
                                 <a href="#" class="btn btn-outline-primary w-100">Sign In</a>
                             </div>
-                            <div class="col-3 text-center">
+                            <div class="col-lg-3 col-sm-3 text-center">
                                 <a href="#" class="btn btn-primary w-100">Login</a>
                             </div>
                         </div>
