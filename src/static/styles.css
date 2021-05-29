@@ -13,3 +13,7 @@ body {
     height: 128px;
     border-radius: 50%;
 }
+
+.rounded-image {
+    border-radius: 50%;
+}
