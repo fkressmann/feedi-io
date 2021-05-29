@@ -32,7 +32,10 @@ def register_extensions(app):
 
 def register_blueprints(app):
     from routes.login import login_bp
+    from routes.room import room_bp
+
     app.register_blueprint(login_bp)
+    app.register_blueprint(room_bp)
     pass
 
 
