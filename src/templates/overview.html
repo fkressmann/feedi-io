@@ -34,7 +34,6 @@
         $("#tableSearch").on("keyup", function () {
             var value = $(this).val().toLowerCase();
             $("#list_of_cards div[data-role='item']").filter(function () {
-                console.log(this);
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
             });
         });
