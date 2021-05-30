@@ -1,4 +1,6 @@
-from flask import Blueprint, get_flashed_messages, render_template, request, flash
+from flask import Blueprint, get_flashed_messages, render_template, request, flash, url_for as for1
+from werkzeug.utils import redirect as redirect1
+
 from extensions.db import db
 from flask_login import login_user
 
@@ -40,7 +42,7 @@ def login():
     maybe_room = Room.query.get(room_id)
     if not maybe_room:
         flash(f"Raum {room_id} konnte nicht gefunden werden", FLASH_DANGER)
-        return redirect_login()
+        return redirect1(for1('login.index'))
 
     maybe_user: User = User.query.get(email)
     if type == 'sign_up':
@@ -51,11 +53,11 @@ def login():
         new_user = User(email, password, maybe_room)
         db.session.add(new_user)
         db.session.commit()
-        return 'success'
+        return redirect(url_for("profile.view"))
     else:
         if maybe_user.check_login(password):
             login_user(maybe_user)
-            return 'login success'
+            return redirect(url_for("profile.view"))
         else:
             flash(f"Das Passwort ist falsch", FLASH_DANGER)
             return redirect(url_for('login.index', invite_id=room_id))

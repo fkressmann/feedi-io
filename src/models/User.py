@@ -30,9 +30,9 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(), primary_key=True, unique=True)
     password = db.Column(db.String())
 
-    firstname = db.Column(db.String())
-    lastname = db.Column(db.String())
-    info = db.Column(db.String())
+    firstname = db.Column(db.String(), nullable=True)
+    lastname = db.Column(db.String(), nullable=True)
+    info = db.Column(db.String(), nullable=True)
 
     room_id = db.Column(db.String(8), db.ForeignKey('room.id'), nullable=False)
     room = db.relationship('Room', backref=db.backref('users', lazy=True))
