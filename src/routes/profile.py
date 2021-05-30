@@ -1,6 +1,6 @@
 from flask import Blueprint, get_flashed_messages, render_template, request, flash
 from extensions.db import db
-from flask_login import login_user, login_required, current_user
+from flask_login import login_required, current_user
 
 from models.Room import Room
 from models.User import User

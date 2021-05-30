@@ -15,6 +15,7 @@
     <div class="row mb-5"></div>
     <div class="row">
         <div class="col-sm-4 col-lg-4">
+            {% for user in room_users %}
             <div class="card" style="width: 18rem;">
                 <div class="row mb-2 mt-2">
                     <div class="col text-center">
@@ -22,11 +23,12 @@
                     </div>
                 </div>
                 <div class="card-body text-center">
-                    <h5 class="card-title text-center">Vorname Nachname</h5>
-                    <p class="card-text text-center">Rolle</p>
+                    <h5 class="card-title text-center">{{ user.firstname }} {{ user.lastname }}</h5>
+                    <p class="card-text text-center">{{ user.info }}</p>
                     <a href="#" class="btn btn-primary">Feedback Geben</a>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 </div>

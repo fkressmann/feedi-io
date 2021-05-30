@@ -53,11 +53,13 @@ def login():
         new_user = User(email, password, maybe_room)
         db.session.add(new_user)
         db.session.commit()
+        flash("Erfolgreich registiert!", FLASH_SUCCESS)
+        login_user(new_user)
         return redirect(url_for("profile.view"))
     else:
         if maybe_user.check_login(password):
             login_user(maybe_user)
-            return redirect(url_for("profile.view"))
+            return redirect(url_for("room.overview"))
         else:
             flash(f"Das Passwort ist falsch", FLASH_DANGER)
             return redirect(url_for('login.index', invite_id=room_id))
