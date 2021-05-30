@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Raum erstellt{% endblock %}
+
+{% block header %}
+<nav class="navbar navbar-light bg-light">
+    Dein erstellter Raum
+</nav>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-5"></div>
+    <div class="row">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card bg-light w-100" style="width: 18rem;">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-center">Teile diesen Link mit anderen</h5>
+                    <p>Über diesen Link können andere Personen deinem Raum beitreten nachdem sie sich selbst registriert
+                        haben</p>
+                    <input type="text" value="{{room.id}}" id="room_id" readonly>
+                    <button class="btn btn-primary" onclick="copySharingUrl()">Link kopieren</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-5"></div>
+    <div class="row">
+        <div class="col-sm-12 col-lg-12">
+            <div class="card bg-light w-100" style="width: 18rem;">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-center">Link um den Raum zu bearbeiten</h5>
+                    <div class="alert alert-danger" role="alert">
+                        Speicher dir diesen Link sicher ab, um den Raum später bearbeiten zu können. Der Link wird dir
+                        nur einmal an dieser Stelle angezeigt.
+                    </div>
+                    <input type="text" value="{{room.admin_key}}" id="admin_url" readonly>
+                    <button class="btn btn-primary" onclick="copyAdminUrl()">Link
+                        kopieren</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    function copySharingUrl() {
+        /* Get the text field */
+        var copyText = document.getElementById("room_id");
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+    }
+
+    function copyAdminUrl() {
+        /* Get the text field */
+        var copyText = document.getElementById("admin_url");
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+    }
+</script>
+{% endblock %}

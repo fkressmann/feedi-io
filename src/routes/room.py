@@ -22,4 +22,4 @@ def create():
         db.session.add(room)
         db.session.commit()
 
-        return f"Created. ID:{room.id}, admin key:{room.admin_key}"
+        return render_template('room_created.html', room=room)

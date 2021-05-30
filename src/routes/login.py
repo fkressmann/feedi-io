@@ -61,6 +61,5 @@ def login():
             return redirect(url_for('login.index', invite_id=room_id))
 
 
-
 def redirect_login():
     return redirect(url_for('login.index'))
