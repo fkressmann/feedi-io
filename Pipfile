@@ -13,6 +13,7 @@ flask-limiter = "*"
 psycopg2-binary = "*"
 flask-login = "*"
 pillow = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.9"
