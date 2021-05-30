@@ -19,7 +19,21 @@ def received():
 @feedback_bp.route('/feedback-given')
 @login_required
 def given():
-    pass
+    feedback = current_user.given_feedback
+    return render_template("given_feedback.html", feedback=feedback)
+
+
+@feedback_bp.route('/feedback/delete')
+def delete():
+    id_to_delete = request.args.get('id')
+    maybe_feedback = FeedbackEntry.query.get(id_to_delete)
+    if not maybe_feedback or maybe_feedback.giver != current_user:
+        flash("Kann nicht gelöscht werden", FLASH_DANGER)
+        return redirect(url_for('feedback.given'))
+    db.session.delete(maybe_feedback)
+    db.session.commit()
+    flash("Erfolgreich gelöscht", FLASH_SUCCESS)
+    return redirect(url_for('feedback.given'))
 
 
 @feedback_bp.route('/send-feedback')
@@ -38,12 +52,37 @@ def send():
     return render_template("send_feedback.html", receiver=maybe_receiver)
 
 
+@feedback_bp.route('/edit-feedback')
+@login_required
+def edit():
+    feedback_id = request.args.get('id')
+    maybe_feedback = FeedbackEntry.query.get(feedback_id)
+    if not maybe_feedback or maybe_feedback.giver != current_user:
+        flash("Ah fuck off", FLASH_DANGER)
+        return redirect(url_for('feedback.given'))
+
+    return render_template("send_feedback.html", receiver=maybe_feedback.receiver, content=maybe_feedback)
+
+
 @feedback_bp.route('/save-feedback', methods=['POST'])
 @login_required
 def save():
+    id_to_update = request.form.get('id_to_update')
+
     receiver = request.form.get('receiver_id')
     text = request.form.get('feedback_message')
     anonymous = True if request.form.get('send_anonymously') else False
+
+    if id_to_update:
+        maybe_feedback = FeedbackEntry.query.get(id_to_update)
+        if not maybe_feedback or maybe_feedback.giver != current_user:
+            flash("Ah fuck off", FLASH_DANGER)
+            return redirect(url_for('feedback.given'))
+        maybe_feedback.text = text
+        maybe_feedback.anonymous = anonymous
+        db.session.commit()
+        flash("Erfolgreich aktualisiert", FLASH_SUCCESS)
+        return redirect(url_for('feedback.given'))
 
     maybe_receiver = User.query.get(receiver)
     if not maybe_receiver:
