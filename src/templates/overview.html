@@ -6,12 +6,13 @@
 {% block content %}
 <div class="container">
     <div class="row mb-5"></div>
-    <div class="row">
+    <input class="form-control mb-4" id="tableSearch" type="text" placeholder="Type something to search list items">
+    <div class="row" id="list_of_cards">
         {% for user in room_users %}
-        <div class="col-sm-12 col-lg-4 mt-3">
+        <div class="col-sm-12 col-lg-4 mt-3" data-role="item" id={{ user.firstname }}>
             <div class="card bg-light w-100" style="width: 18rem;">
                 <div class="row mb-2 mt-2">
-                    <div class="col text-center">
+                    <div class="img col text-center">
                         <img src="../static/img/profil_test.jpg" class="profil-image">
                     </div>
                 </div>
@@ -25,4 +26,19 @@
         {% endfor %}
     </div>
 </div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(document).ready(function () {
+        $("#tableSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#list_of_cards div[data-role='item']").filter(function () {
+                console.log(this);
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+
 {% endblock %}
