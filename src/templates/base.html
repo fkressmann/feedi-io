@@ -12,17 +12,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="none"/>
     {% block head %}{% endblock %}
-    {% if room %}
-        <style>
-            primary-bg {
-                background-color: # {{ room.primary_color }} !important;
-            }
-        </style>
-    {% endif %}
+
     <title>{% block title %}{% endblock %}</title>
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-sm navbar-light sticky-top bg-light">
+        <a class="navbar-brand" href="#">
+            <img class="mr-5" src="/static/img/logo_dualer.png" height="64px" alt="">Room Name Placeholder
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{url_for('room.overview')}}">Raumübersicht</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{url_for('profile.view')}}">Profileinstellungen</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="feedback_received">Erhaltenes Feedback</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="feedback_sent">Gegebenes Feedback</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 {% block header %}{% endblock %}
 <div class="container">
     {% with messages = get_flashed_messages(True) %}
