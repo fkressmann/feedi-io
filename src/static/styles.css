@@ -17,3 +17,8 @@ body {
 .rounded-image {
     border-radius: 50%;
 }
+
+.small-image {
+    width: 64px !important;
+    height: 64px !important;
+}
