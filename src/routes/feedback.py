@@ -12,7 +12,8 @@ feedback_bp = Blueprint('feedback', __name__)
 @feedback_bp.route('/feedback-received')
 @login_required
 def received():
-    pass
+    feedback = current_user.received_feedback
+    return render_template("received_feedback.html", feedback=feedback)
 
 
 @feedback_bp.route('/feedback-given')
@@ -34,7 +35,7 @@ def send():
         flash("Don't break it, dieser User gehört nicht zu deinem Room!", FLASH_DANGER)
         return redirect(url_for('room.overview'))
 
-    return render_template("give_feedback.html", receiver=maybe_receiver)
+    return render_template("send_feedback.html", receiver=maybe_receiver)
 
 
 @feedback_bp.route('/save-feedback', methods=['POST'])

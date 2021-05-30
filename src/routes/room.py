@@ -23,7 +23,6 @@ def create():
     if request.method == 'GET':
         return render_template("create_room.html")
     else:
-        print(request.form)
         room_name = request.form.get('room_name')
         pri_color = request.form.get('primary_color')
         sec_color = request.form.get('secondary_color')
