@@ -2,7 +2,7 @@ from flask import Blueprint, get_flashed_messages, render_template, request, fla
 from werkzeug.utils import redirect as redirect1
 
 from extensions.db import db
-from flask_login import login_user
+from flask_login import login_user, login_required, logout_user
 
 from models.Room import Room
 from models.User import User
@@ -61,6 +61,12 @@ def login():
             flash(f"Das Passwort ist falsch", FLASH_DANGER)
             return redirect(url_for('login.index', invite_id=room_id))
 
+
+@login_bp.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect_login()
 
 def redirect_login():
     return redirect(url_for('login.index'))
