@@ -1,3 +1,5 @@
+from sqlalchemy import func
+
 from extensions.db import db
 from models.User import User
 
@@ -6,6 +8,7 @@ class FeedbackEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text)
     anonymous = db.Column(db.Boolean)
+    time_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
     giver_id = db.Column(db.Integer(), db.ForeignKey('users.id'), nullable=False)
     giver = db.relationship('User', backref=db.backref('given_feedback', lazy=True), foreign_keys=[giver_id])

@@ -26,24 +26,30 @@
                                 <div class="form-group col-lg-6 col-sm-12">
                                     <label for="room_name">Name des Raums</label>
                                     <input type="text" class="form-control" name="room_name"
+                                           {% if content %}value="{{ content.name }}"{% endif %}
                                            placeholder="Dualer Summit Feedback Room">
                                 </div>
                             </div>
                             <div class="row justify-content-md-center">
                                 <div class="form-group col-lg-6 col-sm-12">
                                     <label for="primary_color">Primäre Farbe</label>
-                                    <input type="color" class="form-control" name="primary_color">
+                                    <input type="color" class="form-control" name="primary_color"
+                                           {% if content %}value="{{ content.primary_color }}"{% endif %}>
                                 </div>
                             </div>
                             <div class="row justify-content-md-center">
                                 <div class="form-group col-lg-6 col-sm-12">
                                     <label for="secondary_color">Sekundäre Farbe</label>
-                                    <input type="color" class="form-control" name="secondary_color">
+                                    <input type="color" class="form-control" name="secondary_color"
+                                           {% if content %}value="{{ content.secondary_color }}"{% endif %}>
                                 </div>
                             </div>
                             <div class="row justify-content-center">
 
                                 <div class="col-lg-3 col-sm-12 text-center">
+                                    {% if content %}
+                                        <input type="text" name="key_to_update" value="{{ content.admin_key }}"
+                                               hidden> {% endif %}
                                     <button type="submit" class="btn btn-primary w-100">Raum erstellen</button>
                                 </div>
                             </div>

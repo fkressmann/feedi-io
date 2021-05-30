@@ -1,3 +1,5 @@
+from sqlalchemy import func
+
 from extensions.db import db
 import random
 import uuid
@@ -8,6 +10,8 @@ class Room(db.Model):
     primary_color = db.Column(db.String(7))
     secondary_color = db.Column(db.String(7))
     admin_key = db.Column(db.String(36))
+    time_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
+
 
     def __init__(self, name, primary_color, secondary_color):
         self.name = name

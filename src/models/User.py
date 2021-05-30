@@ -2,6 +2,7 @@ import hashlib
 import os
 import binascii
 from flask_login import UserMixin
+from sqlalchemy import func
 
 from extensions.db import db
 
@@ -31,6 +32,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(), unique=True, nullable=False)
     password = db.Column(db.String())
     profile_pic = db.Column(db.String(), nullable=True)
+    time_created = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
     firstname = db.Column(db.String(), nullable=True)
     lastname = db.Column(db.String(), nullable=True)
