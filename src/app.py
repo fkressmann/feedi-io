@@ -14,6 +14,9 @@ def load_configuration(app):
     app.config.from_object('config')
     app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{app.config.get('DB_USER')}:{app.config.get('DB_PASSWORD')}@{app.config.get('DB_HOST')}/{app.config.get('DB_NAME')}"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 5
+    app.config['UPLOAD_EXTENSIONS'] = ['.jpg']
+    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
 
 
 def register_extensions(app):
@@ -22,11 +25,13 @@ def register_extensions(app):
     from extensions.limiter import limiter
     from extensions.migrate import migrate
     from extensions.login import login_manager
+    from extensions.jinja_functions import jinja_functions
 
     db.init_app(app)
     migrate.init_app(app, db)
     limiter.init_app(app)
     login_manager.init_app(app)
+    jinja_functions.init(app)
 
 
 

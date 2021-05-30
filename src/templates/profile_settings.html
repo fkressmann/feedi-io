@@ -17,7 +17,7 @@
                         </div>
                         <div class="row justify-content-md-center">
                             <div class="col-lg-12 col-sm-12 text-center">
-                                <img src="../static/img/profil_test.jpg" class="profil-image">
+                                <img src="{{ get_profile_pic(user) }}" class="profil-image">
                             </div>
                         </div>
                         <form method="POST" action="{{ url_for('profile.edit') }}">

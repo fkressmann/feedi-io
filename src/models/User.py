@@ -30,6 +30,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
     email = db.Column(db.String(), unique=True, nullable=False)
     password = db.Column(db.String())
+    profile_pic = db.Column(db.String(), nullable=True)
 
     firstname = db.Column(db.String(), nullable=True)
     lastname = db.Column(db.String(), nullable=True)

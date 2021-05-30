@@ -4,40 +4,42 @@
 
 
 {% block content %}
-<div class="container">
-    <div class="row mb-5"></div>
-    <input class="form-control mb-4" id="tableSearch" type="text" placeholder="Type something to search list items">
-    <div class="row" id="list_of_cards">
-        {% for user in room_users %}
-        <div class="col-sm-12 col-lg-4 mt-3" data-role="item" id={{ user.firstname }}>
-            <div class="card bg-light w-100" style="width: 18rem;">
-                <div class="row mb-2 mt-2">
-                    <div class="img col text-center">
-                        <img src="../static/img/profil_test.jpg" class="profil-image">
+    <div class="container">
+        <div class="row mb-5"></div>
+        <input class="form-control mb-4" id="tableSearch" type="text" placeholder="Type something to search list items">
+        <div class="row" id="list_of_cards">
+            {% for user in room_users %}
+                <div class="col-sm-12 col-lg-4 mt-3" data-role="item" id={{ user.firstname }}>
+                    <div class="card bg-light w-100" style="width: 18rem;">
+                        <div class="row mb-2 mt-2">
+                            <div class="img col text-center">
+                                <img src="{{ get_profile_pic(user) }}"
+                                     class="profil-image">
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-center">{{ user.firstname }} {{ user.lastname }}</h5>
+                            <p class="card-text text-center">{{ user.info }}</p>
+                            <a href="{{ url_for('feedback.send', receiver=user.id) }}" class="btn btn-primary">Feedback
+                                geben</a>
+                        </div>
                     </div>
                 </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title text-center">{{ user.firstname }} {{ user.lastname }}</h5>
-                    <p class="card-text text-center">{{ user.info }}</p>
-                    <a href="{{ url_for('feedback.send', receiver=user.id) }}" class="btn btn-primary">Feedback geben</a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-</div>
 {% endblock %}
 
 {% block script %}
-<script>
-    $(document).ready(function () {
-        $("#tableSearch").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#list_of_cards div[data-role='item']").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    <script>
+        $(document).ready(function () {
+            $("#tableSearch").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#list_of_cards div[data-role='item']").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
             });
         });
-    });
-</script>
+    </script>
 
 {% endblock %}

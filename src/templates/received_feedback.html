@@ -21,7 +21,7 @@
         {% for f in feedback %}
             <div class="row pt-3 justify-content-start bg-light border rounded">
                 <div class="col-lg-2">
-                    <img src="../static/img/profil_test.jpg" class="profil-image">
+                    <img src="{{ get_profile_pic(f.giver, f.anonymous) }}" class="profil-image">
                 </div>
                 <div class="col-lg-10">
                     <div class="row">
