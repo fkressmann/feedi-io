@@ -22,8 +22,7 @@ def index():
             flash("Sorry, dieser Link ist ungültig. Frage deinen Host nach dem richtigen Link.",
                   FLASH_DANGER)
 
-    messages = get_flashed_messages(True)
-    return render_template('login.html', messages=messages, room=maybe_room)
+    return render_template('login.html', room=maybe_room)
 
 
 @login_bp.route('/login', methods=['POST'])
