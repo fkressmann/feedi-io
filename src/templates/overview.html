@@ -19,7 +19,7 @@
                 <div class="card-body text-center">
                     <h5 class="card-title text-center">{{ user.firstname }} {{ user.lastname }}</h5>
                     <p class="card-text text-center">{{ user.info }}</p>
-                    <a href="#" class="btn btn-primary">Feedback geben</a>
+                    <a href="{{ url_for('feedback.send', receiver=user.id) }}" class="btn btn-primary">Feedback geben</a>
                 </div>
             </div>
         </div>

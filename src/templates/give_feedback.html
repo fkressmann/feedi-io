@@ -14,16 +14,16 @@
                 <div class="col-sm-6 col-lg-6">
                     <div class="row">
                         <div class="col-sm-12 col-lg-12">
-                            <h2>Vorname Nachname</h2>
+                            <h2>{{ receiver.firstname }} {{ receiver.lastname }}</h2>
                         </div>
-                        <div class="col-sm-12 col-lg-12">Rolle</div>
+                        <div class="col-sm-12 col-lg-12">{{ receiver.info }}</div>
                     </div>
                 </div>
             </div>
 
             <div class="row mt-3 justify-content-md-center">
                 <div class="col-sm-12 col-lg-8">
-                    <form>
+                    <form method="POST" action="{{ url_for('feedback.save') }}">
                         <div class="form-group">
                             <label for="feedback_message">Gebe hier dein Feedback ein</label>
                             <textarea name="feedback_message" class="form-control" id="feedback_message"
@@ -31,11 +31,12 @@
                         </div>
                         <div class="row justify-content-start">
                             <div class="col-4">
+                                <input type="text" name="receiver_id" value="{{ receiver.id }}" hidden>
                                 <button type="submit" class="btn btn-primary">Feedback absenden</button>
                             </div>
                             <div class="col-4">
                                 <div class="form-check">
-                                    <input name="send_anonymously" class="form-check-input" type="checkbox" value=""
+                                    <input name="send_anonymously" class="form-check-input" type="checkbox" value="true"
                                         id="send_anonymously">
                                     <label class="form-check-label" for="send_anonymously">
                                         Anonym versenden

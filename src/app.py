@@ -34,10 +34,12 @@ def register_blueprints(app):
     from routes.login import login_bp
     from routes.room import room_bp
     from routes.profile import profile_bp
+    from routes.feedback import feedback_bp
 
     app.register_blueprint(login_bp)
     app.register_blueprint(room_bp)
     app.register_blueprint(profile_bp)
+    app.register_blueprint(feedback_bp)
     pass
 
 

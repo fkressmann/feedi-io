@@ -31,8 +31,6 @@ def login():
     email = request.form.get('user_id')
     password = request.form.get('password')
     type = request.form.get('type')
-    print(room_id, email, password, type)
-    print(request.form)
 
     if not room_id or not email or not password:
         flash(f"Unvollständig", FLASH_DANGER)
@@ -43,7 +41,7 @@ def login():
         flash(f"Raum {room_id} konnte nicht gefunden werden", FLASH_DANGER)
         return redirect1(for1('login.index'))
 
-    maybe_user: User = User.query.get(email)
+    maybe_user: User = User.query.filter_by(email=email).first()
     if type == 'sign_up':
         if maybe_user:
             flash("Es gibt schon einen Account mit dieser Email Adresse", FLASH_DANGER)

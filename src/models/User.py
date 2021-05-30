@@ -27,7 +27,8 @@ def verify_password(stored_password, provided_password):
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
-    email = db.Column(db.String(), primary_key=True, unique=True)
+    id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
+    email = db.Column(db.String(), unique=True, nullable=False)
     password = db.Column(db.String())
 
     firstname = db.Column(db.String(), nullable=True)
@@ -49,4 +50,4 @@ class User(UserMixin, db.Model):
         return verify_password(self.password, given_pw)
 
     def get_id(self):
-        return self.email
+        return self.id
