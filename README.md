@@ -5,6 +5,8 @@
 * Set the env vars in ```src/config.py``` to configure your environment
 * execute ```flask db upgrade``` in virtualenv to apple database migrations
 * execute feedi.io with ```flask run```
+## Debugging mode on Win systems
+* Export dev env variable within a Power Shell before running flask run ```$env:FLASK_ENV = 'development'
 
 ## Docker
 * To built the docker image, first export the dependencies into a pinpointed 
