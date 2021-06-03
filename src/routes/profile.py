@@ -43,7 +43,7 @@ def edit():
     return redirect(url_for(".view"))
 
 
-@profile_bp.route('/profile/upload-pic', methods=['POST'])
+@profile_bp.route('/profile/upload_pic', methods=['POST'])
 @login_required
 def upload_pic():
     pic = request.files['pic']
@@ -54,11 +54,8 @@ def upload_pic():
     return redirect(url_for(".view"))
 
 
-@profile_bp.route('/profile-pics/<user_id>.jpg')
+@profile_bp.route('/profile-pics/<profile_pic>')
 @login_required
-def get_pic(user_id):
-    maybe_user = User.query.get(user_id)
-    if not maybe_user or maybe_user.room != current_user.room:
-        return 404
-    path = current_app.config.get('PROFILE_PIC_PATH') + maybe_user.profile_pic
+def get_pic(profile_pic):
+    path = current_app.config.get('PROFILE_PIC_PATH') + profile_pic
     return send_file(path, max_age=300)

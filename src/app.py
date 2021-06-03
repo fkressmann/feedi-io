@@ -14,9 +14,8 @@ def load_configuration(app):
     app.config.from_object('config')
     app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{app.config.get('DB_USER')}:{app.config.get('DB_PASSWORD')}@{app.config.get('DB_HOST')}/{app.config.get('DB_NAME')}"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 5
+    app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 10
     app.config['UPLOAD_EXTENSIONS'] = ['.jpg']
-    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300
 
 
 def register_extensions(app):
@@ -34,7 +33,6 @@ def register_extensions(app):
     jinja_functions.init(app)
 
 
-
 def register_blueprints(app):
     from routes.login import login_bp
     from routes.room import room_bp
@@ -46,7 +44,6 @@ def register_blueprints(app):
     app.register_blueprint(profile_bp)
     app.register_blueprint(feedback_bp)
     pass
-
 
 
 app = create_app()
