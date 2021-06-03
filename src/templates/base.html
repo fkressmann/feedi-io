@@ -28,17 +28,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('room.overview') }}">Raumübersicht</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('profile.view') }}">Profileinstellungen</a>
+                <li class="nav-item">
+                    <a class="nav-link {% if url_for(request.endpoint)[1:] == 'overview' %}text-primary{% endif %}" href="{{ url_for('room.overview') }}">Raumübersicht</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('feedback.received') }}">Erhaltenes Feedback</a>
+                    <a class="nav-link {% if url_for(request.endpoint)[1:] == 'profile' %}text-primary{% endif %}" href="{{ url_for('profile.view') }}">Profileinstellungen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('feedback.given') }}">Gegebenes Feedback</a>
+                    <a class="nav-link {% if url_for(request.endpoint)[1:] == 'feedback-received' %}text-primary{% endif %}" href="{{ url_for('feedback.received') }}">Erhaltenes Feedback</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if url_for(request.endpoint)[1:] == 'feedback-given' %}text-primary{% endif %}" href="{{ url_for('feedback.given') }}">Gegebenes Feedback</a>
                 </li>
             </ul>
         </div>
