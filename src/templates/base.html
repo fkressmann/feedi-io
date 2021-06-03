@@ -41,8 +41,18 @@
                     <a class="nav-link {% if url_for(request.endpoint)[1:] == 'feedback-given' %}text-primary{% endif %}" href="{{ url_for('feedback.given') }}">Gegebenes Feedback</a>
                 </li>
             </ul>
+            <ul class="navbar-nav ml-auto pr-5">
+                <li class="nav-item dropdown navbar-right pr-5">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <img src="/static/img/profile_icon.png" width="40" height="40" class="rounded-circle">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" href="{{ url_for('profile.view') }}">Profil</a>
+                      <a class="dropdown-item" href="{{ url_for('login.logout') }}">Logout</a>
+                    </div>
+                  </li>   
+            </ul>
         </div>
-        <a class="btn btn-danger" href="{{ url_for('login.logout') }}">Logout</a>
     </nav>
 {% block header %}{% endblock %}
 <div class="container">
