@@ -21,13 +21,19 @@
                                 <img src="../static/img/logo.png" class="logo">
                             </div>
                         </div>
-                        <form method="POST" action="{{ url_for('room.create') }}">
+                        <form method="POST" action="{{ url_for('room.create') }}" enctype="multipart/form-data">
                             <div class="row justify-content-md-center">
                                 <div class="form-group col-lg-6 col-sm-12">
                                     <label for="room_name">Name des Raums</label>
                                     <input type="text" class="form-control" name="room_name"
                                            {% if content %}value="{{ content.name }}"{% endif %}
                                            placeholder="Dualer Summit Feedback Room">
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center mt-2 mb-3">
+                                <div class="col-lg-6 col-sm-12 text-center">
+                                    <label class="form-label" for="profil_pic">Lade ein Logo für deinen Raum hoch</label>
+                                    <input type="file" name="room_picture" class="form-control bg-light" id="pic" />
                                 </div>
                             </div>
                             <div class="row justify-content-md-center">
