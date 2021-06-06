@@ -45,7 +45,7 @@
             <ul class="navbar-nav ml-auto pr-5">
                 <li class="nav-item dropdown navbar-right pr-5">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <img src="/static/img/profile_icon.png" width="40" height="40" class="rounded-circle">
+                      <img src="{{ get_profile_pic(current_user) }}" width="40" height="40" class="rounded-circle">
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                       <a class="dropdown-item" href="{{ url_for('profile.view') }}">Profil</a>
