@@ -51,11 +51,15 @@ def create():
             flash("Dieser Key ist falsch", FLASH_DANGER)
             return redirect(url_for('login.index'))
         maybe_room.name = room_name
+        old_filename = None
         if cropped_picture:
+            old_filename = maybe_room.room_pic
             maybe_room.room_pic = cropped_picture
         maybe_room.primary_color = pri_color
         maybe_room.secondary_color = sec_color
         db.session.commit()
+        if old_filename:
+            image_service.delete_image(old_filename)
         flash("Raum erfolgreich aktualisiert", FLASH_SUCCESS)
         return redirect(url_for('login.index'))
 

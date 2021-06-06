@@ -31,9 +31,11 @@ def edit():
 def upload_pic():
     pic = request.files['pic']
     if pic.filename != '':
-        filename = image_service.crop_and_save_pic(pic)
-        current_user.profile_pic = filename
+        old_filename = current_user.profile_pic
+        new_filename = image_service.crop_and_save_pic(pic)
+        current_user.profile_pic = new_filename
         db.session.commit()
+        image_service.delete_image(old_filename)
     return redirect(url_for(".view"))
 
 
