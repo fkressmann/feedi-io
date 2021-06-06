@@ -1,6 +1,7 @@
 body {
     font-family: 'EB Garamond', serif;
     background-image: url("./img/login_background.jpg");
+    background-attachment: fixed;
 }
 
 .logo {

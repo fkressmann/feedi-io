@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="../static/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="none"/>
+    <title>Feedio</title>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row mb-5"></div>
+    <div class="row justify-content-md-center">
+        <div class="col-lg-10 col-sm-12">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="row justify-content-md-center align-items-center">
+                        <div class="col-lg-5 col-sm-12 text-center">
+                            <h3>Persönlich oder anonym in Gruppen Feedback geben</h3>
+                            <p>Feedi gibt dir die Möglichkeit nach Workshops, Seminaren oder andern Veranstaltungen persönliches
+                                oder anonymes Feedback innerhalb einer Gruppe zu geben und zu erhalten.
+                            </p>
+                        </div>
+                        <div class="col-lg-5 col-sm-12 text-center">
+                            <img src="../static/svg/give_feedback.svg" class="w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mt-5 justify-content-md-center align-items-center">
+                        <div class="col-lg-5 order-lg-2 col-sm-12 text-center">
+                            <h3>Einen neuen Raum erstellen</h3>
+                            <p>
+                                Über Feedi kannst du einen Raum erstellen und andere einladen. Der Raum ist nur für die Personen sichtbar,
+                                die über den Link verfügen.
+                            </p>
+                            <a class="btn btn-outline-primary" href="{{ url_for('room.create') }}" role="button">Raum erstellen</a>
+                        </div>
+                        <div class="col-lg-5 order-lg-1 col-sm-12 text-center">
+                            <img src="../static/svg/create_room.svg" class="w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mt-5 justify-content-md-center align-items-center">
+                        <div class="col-lg-5 col-sm-12 text-center">
+                            <h3>Individuelles Feedback schreiben</h3>
+                            <p>
+                                Wähle eine Person aus und schreibe ihr ein persönliches Feedback. Du kannst das Feedback im Anschluss auch
+                                noch einmal bearbeiten.
+                            </p>
+                        </div>
+                        <div class="col-lg-5 col-sm-12 text-center">
+                            <img src="../static/svg/feedback.svg" class="w-100">
+                        </div>
+                    </div>
+
+                    <div class="row mt-5 mb-5 justify-content-md-center align-items-center">
+                        <div class="col-lg-5 order-lg-2 col-sm-12 text-center">
+                            <h3>Gemeinsam stärker</h3>
+                            <p>
+                                Feedi schafft eine Plattform, auf der wir uns virtuell Zeit nehmen können für Wertschätzung und ein
+                                positives Miteinander.
+                            </p>
+                            <a class="btn btn-primary" href="{{ url_for('room.create') }}" role="button">Jetzt loslegen!</a>
+                        </div>
+                        <div class="col-lg-5 order-lg-1 col-sm-12 text-center">
+                            <img src="../static/svg/celebrate_ourselves.svg" class="w-100">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-5"></div>
+    {% if messages %}
+        <div class="row">
+            <div class="col">
+                {% for m in messages %}
+                    <div class="alert alert-{{ m[0] }} alert-dismissible fade show">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ m[1] }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+
+</script>
+</body>
+
+</html>
