@@ -25,12 +25,14 @@ def register_extensions(app):
     from extensions.migrate import migrate
     from extensions.login import login_manager
     from extensions.jinja_functions import jinja_functions
+    from extensions.image_service import image_service
 
     db.init_app(app)
     migrate.init_app(app, db)
     limiter.init_app(app)
     login_manager.init_app(app)
-    jinja_functions.init(app)
+    jinja_functions.init_app(app)
+    image_service.init_app(app)
 
 
 def register_blueprints(app):

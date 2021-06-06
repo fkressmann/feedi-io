@@ -16,7 +16,7 @@ def get_room_pic_by_user_id(user_id):
 
 
 class JinjaFunctions:
-    def init(self, app):
+    def init_app(self, app):
         app.jinja_env.globals.update(get_profile_pic=get_profile_pic)
         app.jinja_env.globals.update(get_room_pic_by_user_id=get_room_pic_by_user_id)
 
