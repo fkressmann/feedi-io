@@ -21,7 +21,7 @@
     {% if url_for(request.endpoint)[1:] != 'create-room' %}
     <nav class="navbar navbar-expand-sm navbar-light sticky-top bg-light">
         <a class="navbar-brand" href="#">
-            <img class="mr-5" src="{% if not current_user.is_anonymous %}{{get_room_pic_by_user_id(current_user.id)}}{% endif %}" height="64px" alt="">
+            <img class="mr-5" src="{{ get_room_pic() }}" height="64px" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,16 +30,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link {% if url_for(request.endpoint)[1:] == 'overview' %}text-primary{% endif %}" href="{{ url_for('room.overview') }}">Raumübersicht</a>
+                    <a class="nav-link {{ is_active_menu_entry_for('overview') }}" href="{{ url_for('room.overview') }}">Raumübersicht</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if url_for(request.endpoint)[1:] == 'profile' %}text-primary{% endif %}" href="{{ url_for('profile.view') }}">Profileinstellungen</a>
+                    <a class="nav-link {{ is_active_menu_entry_for('profile') }}" href="{{ url_for('profile.view') }}">Profileinstellungen</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if url_for(request.endpoint)[1:] == 'feedback-received' %}text-primary{% endif %}" href="{{ url_for('feedback.received') }}">Erhaltenes Feedback</a>
+                    <a class="nav-link {{ is_active_menu_entry_for('feedback-received') }}" href="{{ url_for('feedback.received') }}">Erhaltenes Feedback</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if url_for(request.endpoint)[1:] == 'feedback-given' %}text-primary{% endif %}" href="{{ url_for('feedback.given') }}">Gegebenes Feedback</a>
+                    <a class="nav-link {{ is_active_menu_entry_for('feedback-given') }}" href="{{ url_for('feedback.given') }}">Gegebenes Feedback</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto pr-5">

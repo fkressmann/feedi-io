@@ -72,9 +72,8 @@ def create():
 @room_bp.route('/room-pics/<room_pic>')
 @login_required
 def get_pic(room_pic):
-    maybe_user = User.query.get(current_user.id)
     room = Room.query.filter_by(room_pic=room_pic).first()
-    if not maybe_user or maybe_user.room_id != room.id:
+    if not current_user.room_id == room.id:
         return 404
     path = current_app.config.get('PICTURE_PATH') + room_pic
     return send_file(path, max_age=300)
