@@ -12,4 +12,5 @@ class DevelopmentConfig(Config):
     PICTURE_PATH = os.environ.get("PICTURE_PATH") or 'pics/'
 
 class ProductionConfig(Config):
+    FLASK_SECRET = os.environ.get("FLASK_SECRET") or '4b6e2234ffa7c9'
     DATABASE_URL = os.environ.get("DATABASE_URL")
