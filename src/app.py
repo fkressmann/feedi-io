@@ -1,5 +1,7 @@
 from flask import Flask, session
 
+import os
+
 
 def create_app():
     app = Flask(__name__)
@@ -11,8 +13,12 @@ def create_app():
 
 
 def load_configuration(app):
-    app.config.from_object('config')
-    app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{app.config.get('DB_USER')}:{app.config.get('DB_PASSWORD')}@{app.config.get('DB_HOST')}/{app.config.get('DB_NAME')}"
+    if os.environ.get("APPLICATION_MODE") == "DEV":
+        app.config.from_object('config.DevelopmentConfig')
+        app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{app.config.get('DB_USER')}:{app.config.get('DB_PASSWORD')}@{app.config.get('DB_HOST')}/{app.config.get('DB_NAME')}"
+    elif os.environ.get("APPLICATION_MODE") == "PROD":
+        app.config.from_object('config.ProductionConfig')
+        app.config['SQLALCHEMY_DATABASE_URI'] = app.config.get('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 10
     app.config['UPLOAD_EXTENSIONS'] = ['.jpg']
