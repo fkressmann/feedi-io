@@ -37,13 +37,14 @@ def form():
 def create():
     room_name = request.form.get('room_name')
     maybe_room_pic = request.files.get('room_picture')
+    pic_content_type = maybe_room_pic.mimetype
     pri_color = request.form.get('primary_color')
     sec_color = request.form.get('secondary_color')
     key_to_update = request.form.get('key_to_update')
 
     cropped_picture = None
     if maybe_room_pic:
-        cropped_picture = image_service.crop_and_save_pic(maybe_room_pic)
+        cropped_picture = image_service.crop_and_save_pic(maybe_room_pic, pic_content_type, False)
 
     if key_to_update:
         maybe_room = Room.query.filter_by(admin_key=key_to_update).first()
@@ -72,8 +73,12 @@ def create():
 @room_bp.route('/room-pics/<room_pic>')
 @login_required
 def get_pic(room_pic):
+    S3_BUCKET = current_app.config.get('S3_BUCKET')
+
     room = Room.query.filter_by(room_pic=room_pic).first()
     if not current_user.room_id == room.id:
         return 404
     path = current_app.config.get('PICTURE_PATH') + room_pic
-    return send_file(path, max_age=300)
+    
+    response = image_service.s3_read_pic(S3_BUCKET,room.room_pic)
+    return send_file(response, mimetype="PNG", max_age=300)
