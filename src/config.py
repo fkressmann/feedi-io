@@ -17,7 +17,7 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     FLASK_SECRET = os.environ.get("FLASK_SECRET") or '4b6e2234ffa7c9'
-    DATABASE_URL = os.environ.get("DATABASE_URL")
+    DATABASE_URL = os.environ.get("DATABASE_URL_CLEAN")
     PICTURE_PATH = os.environ.get("PICTURE_PATH")
     S3_BUCKET = os.environ.get("S3_BUCKET") or 'feedio-storage'
     AWS_ACCESS_KEY = os.environ.get("AWS_ACCESS_KEY")
