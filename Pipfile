@@ -15,6 +15,7 @@ flask-login = "*"
 pillow = "*"
 gunicorn = "*"
 boto3 = "*"
+requests = "*"
 
 [requires]
 python_version = "3.9"
