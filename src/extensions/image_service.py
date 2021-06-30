@@ -43,7 +43,9 @@ class ImageService:
         raise RecursionError("Too many attempts to create a filename")
 
     def s3_upload(self, inp_file_name, s3_bucket_name, inp_file_key, content_type):
-        s3_client = boto3.client('s3') 
+        s3_client = boto3.client('s3')
+        session = boto3.session.Session(region_name='eu-central-1')
+        s3_client = session.client('s3', config= boto3.session.Config(signature_version='s3v4'))
         upload_file_response = s3_client.put_object(Body=inp_file_name,
                                              Bucket=s3_bucket_name,
                                              Key=inp_file_key,
@@ -56,6 +58,8 @@ class ImageService:
 
     def s3_read_pic(self, s3_bucket_name, inp_file_key, expiry=3600):
         s3_client = boto3.client('s3')
+        session = boto3.session.Session(region_name='eu-central-1')
+        s3_client = session.client('s3', config= boto3.session.Config(signature_version='s3v4'))
         s3_response = s3_client.generate_presigned_url('get_object',
                                             Params={'Bucket': s3_bucket_name,'Key': inp_file_key},
                                             ExpiresIn=expiry)
