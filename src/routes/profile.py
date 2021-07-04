@@ -33,6 +33,7 @@ def edit():
 @profile_bp.route('/profile/upload_pic', methods=['POST'])
 @login_required
 def upload_pic():
+    S3_BUCKET = current_app.config.get('S3_BUCKET')
     pic = request.files['pic']
     if pic.filename != '':
         content_type = request.mimetype
@@ -40,7 +41,7 @@ def upload_pic():
         new_filename = image_service.crop_and_save_pic(pic, content_type, True)
         current_user.profile_pic = new_filename
         db.session.commit()
-        image_service.delete_image(old_filename)
+        image_service.delete_image(S3_BUCKET,old_filename)
     return redirect(url_for(".view"))
 
 

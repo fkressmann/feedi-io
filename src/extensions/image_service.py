@@ -51,10 +51,12 @@ class ImageService:
                                              Key=inp_file_key,
                                              ContentType=content_type)
 
-    def delete_image(self, filename):
-        full_path = self.path_prefix + filename
-        if os.path.isfile(full_path):
-            os.remove(full_path)
+    def delete_image(self, s3_bucket_name, inp_file_key):
+        s3_client = boto3.client('s3')
+        session = boto3.session.Session(region_name='eu-central-1')
+        s3_client = session.client('s3', config= boto3.session.Config(signature_version='s3v4'))
+        s3_reponse = s3_client.delete_object(Bucket=s3_bucket_name,
+                                            Key=inp_file_key)
 
     def s3_read_pic(self, s3_bucket_name, inp_file_key, expiry=3600):
         s3_client = boto3.client('s3')
