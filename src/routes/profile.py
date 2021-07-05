@@ -1,14 +1,11 @@
-from flask import Blueprint, render_template, request, current_app, send_file
-from werkzeug.utils import send_from_directory
+from flask import Blueprint, render_template, request, send_file, flash
 from extensions.db import db
 from extensions.image_service import image_service
 from flask_login import login_required, current_user
 
+from models.Room import Room
 from models.User import User
 from routes.util import *
-
-import boto3
-import json
 
 profile_bp = Blueprint('profile', __name__)
 
@@ -52,3 +49,35 @@ def get_pic(profile_pic):
 
     response = image_service.get_file(maybe_user.profile_pic)
     return send_file(response, mimetype="JPEG", max_age=300)
+
+
+@profile_bp.route('/profile/<user_id>', methods=['DELETE'])
+@login_required
+def delete_user(user_id):
+    print("Deleting user")
+    maybe_user = User.query.get(user_id)
+    admin_key = request.args.get('admin_key')
+    maybe_room = Room.query.filter_by(admin_key=admin_key).first()
+    if not maybe_user or not maybe_room or not maybe_user.room == maybe_room:
+        flash("Nope, you not do this", FLASH_DANGER)
+        return redirect(url_for('login.index'))
+    db.session.delete(maybe_user)
+    db.session.commit()
+    flash("User erfolgreich gelöscht", FLASH_SUCCESS)
+    return redirect(url_for('room.edit_form', admin_key=admin_key))
+
+
+@profile_bp.route('/profile/<user_id>/set-password', methods=['POST'])
+@login_required
+def admin_change_password(user_id):
+    print("Resetting password")
+    maybe_user = User.query.get(user_id)
+    admin_key = request.args.get('admin_key')
+    maybe_room = Room.query.filter_by(admin_key=admin_key).first()
+    if not maybe_user or not maybe_room or not maybe_user.room == maybe_room:
+        flash("Nope, you not do this", FLASH_DANGER)
+        return redirect(url_for('login.index'))
+    new_password = request.form.get('password')
+    maybe_user.change_password(new_password)
+    flash(f"Passwort für {maybe_user.firstname} geändert", FLASH_SUCCESS)
+    return redirect(url_for('room.edit_form', admin_key=admin_key))

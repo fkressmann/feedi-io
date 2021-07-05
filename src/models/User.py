@@ -49,6 +49,9 @@ class User(UserMixin, db.Model):
         self.password = hash_password(password)
         self.room = room
 
+    def change_password(self, new_password):
+        self.password = hash_password(new_password)
+
     def check_login(self, given_pw):
         return verify_password(self.password, given_pw)
 
