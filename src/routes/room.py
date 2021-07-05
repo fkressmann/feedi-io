@@ -32,7 +32,7 @@ def edit_form():
     if not maybe_room:
         flash("Dieser Key ist falsch", FLASH_DANGER)
         return redirect(url_for('login.index'))
-    return render_template("create_room.html", room=maybe_room)
+    return render_template("edit_room.html", room=maybe_room)
 
 
 @limiter.limit("1 per minute")

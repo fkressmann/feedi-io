@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Raum bearbeiten{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row mb-5"></div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-lg-8 col-sm-12">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <div class="row justify-content-md-center">
+                            <div class="col-lg-12 col-sm-12 text-center">
+                                <h5 class="card-title">Passe deinen Raum an</h5>
+                            </div>
+                        </div>
+                        <div class="row justify-content-md-center">
+                            <div class="col-lg-12 col-sm-12 text-center">
+                                <img src="../static/img/logo.png" class="logo">
+                            </div>
+                        </div>
+                        <form method="POST" action="{{ url_for('room.create') }}" enctype="multipart/form-data">
+                            <div class="row justify-content-md-center">
+                                <div class="form-group col-lg-6 col-sm-12">
+                                    <label for="room_name">Name des Raums</label>
+                                    <input type="text" class="form-control" name="room_name"
+                                           value="{{ room.name }}"
+                                           placeholder="Dualer Summit Feedback Room">
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center mt-2 mb-3">
+                                <div class="col-lg-6 col-sm-12 text-center">
+                                    <label class="form-label" for="profil_pic">Lade ein Logo für deinen Raum hoch</label>
+                                    <input type="file" name="room_picture" class="form-control bg-light" id="pic" accept="image/jpeg, image/png" />
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="form-group col-lg-6 col-sm-12">
+                                    <label for="primary_color">Primäre Farbe</label>
+                                    <input type="color" class="form-control" name="primary_color"
+                                           value="{{ room.primary_color }}">
+                                </div>
+                            </div>
+                            <div class="row justify-content-md-center">
+                                <div class="form-group col-lg-6 col-sm-12">
+                                    <label for="secondary_color">Sekundäre Farbe</label>
+                                    <input type="color" class="form-control" name="secondary_color"
+                                           value="{{ room.secondary_color }}">
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+
+                                <div class="col-lg-3 col-sm-12 text-center">
+                                        <input type="text" name="key_to_update" value="{{ room.admin_key }}"
+                                               hidden>
+                                    <button type="submit" class="btn btn-primary w-100">Raum erstellen</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="row mb-5"></div>
+
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-8">
+
+            {% for user in room.users %}
+            <div class="row mt-3 pt-3 pb-3 justify-content-start bg-light border rounded align-items-center">
+                <div class="col d-none d-lg-block d-xl-block">
+                    <img src="{{ get_profile_pic(user) }}" class="profil-image small-image">
+                </div>
+                <div class="col-lg-5">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12">
+                            <h5>{{ user.firstname }} {{ user.lastname }}</h5>
+                        </div>
+                    </div>
+                </div>
+                <form method="POST" action="{{ url_for('profile.admin_change_password', user_id=user.id, admin_key=room.admin_key) }}">
+                    <div id="user_id_{{ user.id }}" class="col" id="new_password_section">
+                        <input class="btn btn-primary w-100 btn-change-password user_id_{{ user.id }}" type="submit" value="Passwort ändern">
+                    </div>
+                </form>
+                <div class="col">
+                    <a href="{{ url_for('profile.delete_user', user_id=user.id, admin_key=room.admin_key) }}" class="btn btn-danger w-100">User löschen</a>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+
+$(".btn-change-password").on('click', function(event){
+    var random_password = Math.random().toString(36).slice(-8);
+    user_id = $(this).attr('class').split(' ').pop();
+    html=`<div id="user_id_${user_id}" class="col" id="new_password_section">
+           <input type="text" id="password" name="password" value="${random_password}">
+           <input class="btn btn-primary w-100 btn-change-password user_id_${user_id}" type="submit" value="Passwort speichern">
+        </div>
+        `;
+
+    $( "#" + user_id ).replaceWith(html);
+    console.log(user_id);
+});
+
+</script>
+{% endblock %}

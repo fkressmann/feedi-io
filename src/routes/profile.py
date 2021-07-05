@@ -51,7 +51,7 @@ def get_pic(profile_pic):
     return send_file(response, mimetype="JPEG", max_age=300)
 
 
-@profile_bp.route('/profile/<user_id>', methods=['DELETE'])
+@profile_bp.route('/profile/<user_id>', methods=['GET'])
 @login_required
 def delete_user(user_id):
     print("Deleting user")
