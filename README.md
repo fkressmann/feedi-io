@@ -7,7 +7,7 @@
 * execute feedi.io with ```flask run```
 ## Debugging mode on Win systems
 * Export dev env variable within a Power Shell before running flask run ```$env:FLASK_ENV = 'development'```
-* Export pics en vvariable within a Power Shell before running flask run ```$env:PICTURE_PATH = 'C:/Users/...'```
+* Export pics env variable within a Power Shell before running flask run ```$env:PICTURE_PATH = 'C:/Users/...'```
 
 ## Docker
 * To built the docker image, first export the dependencies into a pinpointed 

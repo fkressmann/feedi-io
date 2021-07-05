@@ -51,7 +51,6 @@ def register_blueprints(app):
     app.register_blueprint(room_bp)
     app.register_blueprint(profile_bp)
     app.register_blueprint(feedback_bp)
-    pass
 
 
 app = create_app()

@@ -37,14 +37,13 @@ def form():
 def create():
     room_name = request.form.get('room_name')
     maybe_room_pic = request.files.get('room_picture')
-    pic_content_type = maybe_room_pic.mimetype
     pri_color = request.form.get('primary_color')
     sec_color = request.form.get('secondary_color')
     key_to_update = request.form.get('key_to_update')
 
-    cropped_picture = None
+    room_pic = None
     if maybe_room_pic:
-        cropped_picture = image_service.crop_and_save_pic(maybe_room_pic, pic_content_type, False)
+        room_pic = image_service.save_pic(maybe_room_pic)
 
     if key_to_update:
         maybe_room = Room.query.filter_by(admin_key=key_to_update).first()
@@ -53,18 +52,18 @@ def create():
             return redirect(url_for('login.index'))
         maybe_room.name = room_name
         old_filename = None
-        if cropped_picture:
+        if room_pic:
             old_filename = maybe_room.room_pic
-            maybe_room.room_pic = cropped_picture
+            maybe_room.room_pic = room_pic
         maybe_room.primary_color = pri_color
         maybe_room.secondary_color = sec_color
         db.session.commit()
         if old_filename:
-            image_service.delete_image(old_filename)
+            image_service.delete_file(old_filename)
         flash("Raum erfolgreich aktualisiert", FLASH_SUCCESS)
         return redirect(url_for('login.index'))
 
-    room = Room(room_name, cropped_picture, pri_color, sec_color)
+    room = Room(room_name, room_pic, pri_color, sec_color)
     db.session.add(room)
     db.session.commit()
     return render_template('room_created.html', room=room)
@@ -73,12 +72,9 @@ def create():
 @room_bp.route('/room-pics/<room_pic>')
 @login_required
 def get_pic(room_pic):
-    S3_BUCKET = current_app.config.get('S3_BUCKET')
-
     room = Room.query.filter_by(room_pic=room_pic).first()
     if not current_user.room_id == room.id:
         return 404
-    path = current_app.config.get('PICTURE_PATH') + room_pic
-    
-    response = image_service.s3_read_pic(S3_BUCKET,room.room_pic)
-    return send_file(response, mimetype="PNG", max_age=300)
+
+    pic_bytes = image_service.get_file(room.room_pic)
+    return send_file(pic_bytes, mimetype="image/jpeg", max_age=300)
