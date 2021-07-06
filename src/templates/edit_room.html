@@ -21,7 +21,7 @@
                                 <img src="../static/img/logo.png" class="logo">
                             </div>
                         </div>
-                        <form method="POST" action="{{ url_for('room.create') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url_for('room.edit') }}" enctype="multipart/form-data">
                             <div class="row justify-content-md-center">
                                 <div class="form-group col-lg-6 col-sm-12">
                                     <label for="room_name">Name des Raums</label>
@@ -55,7 +55,7 @@
                                 <div class="col-lg-3 col-sm-12 text-center">
                                         <input type="text" name="key_to_update" value="{{ room.admin_key }}"
                                                hidden>
-                                    <button type="submit" class="btn btn-primary w-100">Raum erstellen</button>
+                                    <button type="submit" class="btn btn-primary w-100">Änderungen speichern</button>
                                 </div>
                             </div>
                         </form>

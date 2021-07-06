@@ -21,8 +21,6 @@ def load_configuration(app):
         app.config['SQLALCHEMY_DATABASE_URI'] = app.config.get('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 10
-    app.config['UPLOAD_EXTENSIONS'] = ['.jpg']
-
 
 def register_extensions(app):
 

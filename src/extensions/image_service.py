@@ -12,7 +12,6 @@ def create_filename():
 
 class ImageService:
     def init_app(self, app):
-        self.path_prefix = app.config.get('S3_BUCKET_PATH')
         self.s3_bucket = app.config.get('S3_BUCKET')
 
     def crop_and_save_pic(self, pic):
@@ -39,7 +38,9 @@ class ImageService:
         s3_client.put_object(Body=file_content,
                              Bucket=self.s3_bucket,
                              Key=file_key,
-                             ContentType=content_type)
+                             ContentType=content_type,
+                             CacheControl="private, max-age=604800",
+                             )
 
     def delete_file(self, file_key):
         session = boto3.session.Session(region_name='eu-central-1')

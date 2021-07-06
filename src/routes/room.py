@@ -45,7 +45,7 @@ def create():
 
     room_pic = None
     if maybe_room_pic:
-        room_pic = image_service.save_pic(maybe_room_pic)
+        room_pic = image_service.crop_and_save_pic(maybe_room_pic)
 
     room = Room(room_name, room_pic, pri_color, sec_color)
     db.session.add(room)
@@ -69,10 +69,11 @@ def edit():
 
 
     if maybe_room_pic:
-        room_pic = image_service.save_pic(maybe_room_pic)
+        room_pic = image_service.crop_and_save_pic(maybe_room_pic)
         old_filename = maybe_room.room_pic
         maybe_room.room_pic = room_pic
-        image_service.delete_file(old_filename)
+        if old_filename:
+            image_service.delete_file(old_filename)
     maybe_room.name = room_name
     maybe_room.primary_color = pri_color
     maybe_room.secondary_color = sec_color
@@ -80,14 +81,3 @@ def edit():
 
     flash("Raum erfolgreich aktualisiert", FLASH_SUCCESS)
     return redirect(url_for('.edit_form', admin_key=admin_key))
-
-
-@room_bp.route('/room-pics/<room_pic>')
-@login_required
-def get_pic(room_pic):
-    room = Room.query.filter_by(room_pic=room_pic).first()
-    if not current_user.room_id == room.id:
-        return 404
-
-    pic_bytes = image_service.get_file(room.room_pic)
-    return send_file(pic_bytes, mimetype="image/jpeg", max_age=300)

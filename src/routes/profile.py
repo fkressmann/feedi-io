@@ -40,18 +40,7 @@ def upload_pic():
     return redirect(url_for(".view"))
 
 
-@profile_bp.route('/profile-pics/<profile_pic>')
-@login_required
-def get_pic(profile_pic):
-    maybe_user = User.query.filter_by(profile_pic=profile_pic).first()
-    if not maybe_user or maybe_user.room != current_user.room:
-        return 404
-
-    response = image_service.get_file(maybe_user.profile_pic)
-    return send_file(response, mimetype="JPEG", max_age=300)
-
-
-@profile_bp.route('/profile/<user_id>', methods=['GET'])
+@profile_bp.route('/profile/<user_id>/delete', methods=['GET'])
 @login_required
 def delete_user(user_id):
     print("Deleting user")
@@ -63,6 +52,7 @@ def delete_user(user_id):
         return redirect(url_for('login.index'))
     db.session.delete(maybe_user)
     db.session.commit()
+    image_service.delete_file(maybe_user.profile_pic)
     flash("User erfolgreich gelöscht", FLASH_SUCCESS)
     return redirect(url_for('room.edit_form', admin_key=admin_key))
 
