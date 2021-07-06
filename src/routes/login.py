@@ -13,6 +13,10 @@ login_bp = Blueprint('login', __name__)
 
 @login_bp.route('/')
 def index():
+    return render_template('login.html')
+
+@login_bp.route('/sign-up')
+def index_sign_up():
     invite_id = request.args.get("invite_id")
 
     maybe_room = None
@@ -22,7 +26,7 @@ def index():
             flash("Sorry, dieser Link ist ungültig. Frage deinen Host nach dem richtigen Link.",
                   FLASH_DANGER)
 
-    return render_template('login.html', room=maybe_room)
+    return render_template('sign_up.html', room=maybe_room)
 
 
 @login_bp.route('/login', methods=['POST'])

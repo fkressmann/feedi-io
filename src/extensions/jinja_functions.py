@@ -22,6 +22,7 @@ class JinjaFunctions:
         return self.pic_url(user.profile_pic) if user.profile_pic else url_for('static', filename='img/pic_missing.png')
 
     def pic_url(self, path):
+        print(self.s3_url, path)
         return self.s3_url + path
 
 

@@ -12,7 +12,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="none"/>
-    <title>Feedio - Login</title>
+    <title>Feedio - Registrieren</title>
 </head>
 
 <body>
@@ -55,33 +55,53 @@
                             </div>
                         {% endif %}
                     {% endwith %}
-                    <form method="POST" action="{{ url_for('login.login') }}">
+                    <form method="POST" action="{{ url_for('login.sign_up') }}">
+                        <div class="row justify-content-md-center">
+                            <div class="form-group col-lg-6 col-sm-12">
+                                <label for="room_id">ID des Raums</label>
+                                <input type="text" class="form-control" name="room_id" required readonly
+                                       value="{{ room.id }}">
+                            </div>
+                        </div>
                         <div class="row justify-content-md-center">
                             <div class="form-group col-lg-6 col-sm-12">
                                 <label for="user_id">User ID</label>
-                                <input type="email" class="form-control" name="user_id"
+                                <input required type="email" class="form-control" name="user_id"
                                        placeholder="max.mustermann@web.de">
                             </div>
                         </div>
                         <div class="row justify-content-md-center">
                             <div class="form-group col-lg-6 col-sm-12">
                                 <label for="password">Passwort</label>
-                                <input type="password" class="form-control" name="password"
+                                <input required type="password" class="form-control" name="password" id="password"
                                        placeholder="Dein Passwort">
+                            </div>
+                        </div>
+                        <div class="row justify-content-md-center">
+                            <div class="form-group col-lg-6 col-sm-12">
+                                <label for="password">Passwort wiederholen</label>
+                                <input required type="password" class="form-control" name="password" id="password-2"
+                                       placeholder="Dein Passwort">
+                            </div>
+                        </div>
+
+                        <div hidden class="row justify-content-md-center" id="validation-messages">
+                            <div class="form-group col-lg-6 col-sm-12 text-center text-danger" id="message">
                             </div>
                         </div>
 
                         <div class="row justify-content-center">
 
                             <div class="col-lg-3 col-sm-3 text-center">
-                                <button class="btn btn-primary w-100" name="type" value="login" type="submit">
-                                    Anmelden
+                                <button class="btn btn-primary w-100" name="type" value="sign_up"
+                                        type="submit">
+                                    Registrieren
                                 </button>
                             </div>
                         </div>
                     </form>
                     <div class="row mt-1 mb-5 justify-content-center">
-                        <div class="col text-center"><a href="{{ url_for('login.index_sign_up') }}">Registriere dich hier</a></div>
+                        <div class="col text-center"><a href="{{ url_for('login.index') }}">Du hast bereits einen Account?</a></div>
                     </div>
                     <div class="row mt-5 justify-content-center">
                         <div class="col text-center"><a href="{{ url_for('room.create') }}">Erstelle hier einen neuen Raum!</a></div>
@@ -108,9 +128,23 @@
     {% endif %}
 </div>
 
-<script>
 
-</script>
+
+{% block script %}
+<script>
+    $( "form" ).submit(function( event ) {
+      if ( $( "#password" ).val() === $( "#password-2" ).val() ) {
+        return;
+      } else {
+        $( "validation-messages" ).attr("hidden",false);
+        $( "message" ).html("Die Passwörter sind nicht identisch.");
+        return false;
+      }
+    });
+    </script>
+{% endblock %}
+
+
 </body>
 
 </html>

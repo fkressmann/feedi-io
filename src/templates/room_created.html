@@ -13,7 +13,7 @@
                     <h5 class="card-title text-center">Teile diesen Link mit anderen</h5>
                     <p>Über diesen Link können andere Personen deinem Raum beitreten nachdem sie sich selbst registriert
                         haben</p>
-                    <input type="text" value="{{ url_for('login.index', invite_id=room.id, _external=True) }}" id="room_id" readonly>
+                    <input type="text" value="{{ url_for('login.index_sign_up', invite_id=room.id, _external=True) }}" id="room_id" readonly>
                     <button class="btn btn-primary" onclick="copySharingUrl()">Link kopieren</button>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                         Speicher dir diesen Link sicher ab, um den Raum später bearbeiten zu können. Der Link wird dir
                         nur einmal an dieser Stelle angezeigt.
                     </div>
-                    <input type="text" value="{{ url_for('room.form', admin_key=room.admin_key, _external=True) }}" id="admin_url" readonly>
+                    <input type="text" value="{{ url_for('room.edit_form', admin_key=room.admin_key, _external=True) }}" id="admin_url" readonly>
                     <button class="btn btn-primary" onclick="copyAdminUrl()">Link
                         kopieren</button>
                 </div>
