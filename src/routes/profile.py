@@ -43,7 +43,6 @@ def upload_pic():
 @profile_bp.route('/profile/<user_id>/delete', methods=['GET'])
 @login_required
 def delete_user(user_id):
-    print("Deleting user")
     maybe_user = User.query.get(user_id)
     admin_key = request.args.get('admin_key')
     maybe_room = Room.query.filter_by(admin_key=admin_key).first()
@@ -60,7 +59,6 @@ def delete_user(user_id):
 @profile_bp.route('/profile/<user_id>/set-password', methods=['POST'])
 @login_required
 def admin_change_password(user_id):
-    print("Resetting password")
     maybe_user = User.query.get(user_id)
     admin_key = request.args.get('admin_key')
     maybe_room = Room.query.filter_by(admin_key=admin_key).first()

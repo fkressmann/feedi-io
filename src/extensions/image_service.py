@@ -54,7 +54,6 @@ class ImageService:
         s3_response = s3_client.generate_presigned_url('get_object',
                                                        Params={'Bucket': self.s3_bucket, 'Key': file_key},
                                                        ExpiresIn=3600)
-        print(s3_response)
         response = requests.get(s3_response)
         image_bytes = io.BytesIO(response.content)
 
