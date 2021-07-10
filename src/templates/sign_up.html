@@ -59,7 +59,7 @@
                         <div class="row justify-content-md-center">
                             <div class="form-group col-lg-6 col-sm-12">
                                 <label for="room_id">ID des Raums</label>
-                                <input type="text" class="form-control" name="room_id" required readonly
+                                <input type="text" class="form-control" name="room_id" required placeholder="Frage den Admin des Raums"
                                        value="{{ room.id }}">
                             </div>
                         </div>
@@ -136,8 +136,8 @@
       if ( $( "#password" ).val() === $( "#password-2" ).val() ) {
         return;
       } else {
-        $( "validation-messages" ).attr("hidden",false);
-        $( "message" ).html("Die Passwörter sind nicht identisch.");
+        $( "#validation-messages" ).attr("hidden",false);
+        $( "#message" ).html("Die Passwörter sind nicht identisch.");
         return false;
       }
     });
