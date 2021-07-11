@@ -67,5 +67,6 @@ def admin_change_password(user_id):
         return redirect(url_for('login.index'))
     new_password = request.form.get('password')
     maybe_user.change_password(new_password)
+    db.session.commit()
     flash(f"Passwort für {maybe_user.firstname} geändert", FLASH_SUCCESS)
     return redirect(url_for('room.edit_form', admin_key=admin_key))
