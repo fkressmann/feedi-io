@@ -2,6 +2,11 @@
 
 {% block title %}Erhaltenes Feedback{% endblock %}
 
+{% block head %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="row mb-5"></div>
@@ -12,12 +17,14 @@
                 <h2 class="d-inline">Feedbacks erhalten!</h2>
             </div>
             <div class="col-lg-3 m-auto">
-                <button type="submit" class="btn btn-primary w-100">Als PDF exportieren</button>
+                <button type="submit" class="btn btn-primary w-100" id="export_button">Als PDF exportieren</button>
             </div>
         </div>
 
         <div class="row mt-5"></div>
 
+        <div id="feedback-section">
+        <div>
         {% for f in feedback %}
             <div class="row mt-3 pt-3 justify-content-start bg-light border rounded">
                 <div class="col-lg-2">
@@ -35,5 +42,27 @@
                 </div>
             </div>
         {% endfor %}
+        </div>
+        </div>
     </div>
+{% endblock %}
+
+{% block script %}
+
+<script>
+$( "#export_button" ).click(function() {    
+    var elementHTML = $('#feedback-section').html();
+
+    var opt = 
+    {
+        filename:   'feedback.pdf'
+    }
+
+    html2pdf()
+    .set(opt)
+    .from(elementHTML)
+    .save();
+});
+</script>
+
 {% endblock %}
