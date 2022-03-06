@@ -1,4 +1,8 @@
 # feedi-io
+Use feedi-io to collect personal / anonymized feedback in your organization. 
+Sorry for the german stuff, this tool was primarily developed by and for [Dualer Consulting](https://dualer.de/).
+![Intro to feedi-io](resources/intro.jpeg)
+
 ## Running locally
 * Use pipenv to create a virtaulenv with all required dependencies installed.
 * Have a Postgres database at hand
